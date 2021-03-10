@@ -4,6 +4,8 @@ import { LandingComponent } from './landing.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingSliderComponent } from './components/landing-slider/landing-slider.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { TrendingMoviesComponent } from './components/trending-movies/trending-movies.component';
+import { MovieCardModule } from '../../components/movie-card/movie-card.module';
 
 const routes: Routes = [
   {
@@ -14,11 +16,12 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ LandingComponent, LandingSliderComponent ],
+  declarations: [ LandingComponent, LandingSliderComponent, TrendingMoviesComponent ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     MatCarouselModule.forRoot(),
+    MovieCardModule,
   ],
 })
 export class LandingModule {
