@@ -1,0 +1,16 @@
+<mat-carousel
+  timings="200ms ease-in"
+  [autoplay]="true"
+  interval="3000"
+  color="white"
+>
+
+  <mat-carousel-slide
+    *ngFor="let slide of slides; let i = index"
+    [image]="slide.image"
+    [hideOverlay]="false"
+  ></mat-carousel-slide>
+</mat-carousel>
+<pre>
+    {{slides | json}}
+</pre>

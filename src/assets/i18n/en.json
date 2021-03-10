@@ -1,0 +1,8 @@
+{
+  "toolbar": {
+    "projectTitle": "MovieDB App",
+    "movies": "Movies",
+    "tvShows": "TV Shows",
+    "genres": "Genres"
+  }
+}
