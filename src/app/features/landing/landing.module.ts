@@ -6,6 +6,8 @@ import { LandingSliderComponent } from './components/landing-slider/landing-slid
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { TrendingMoviesComponent } from './components/trending-movies/trending-movies.component';
 import { MovieCardModule } from '../../components/movie-card/movie-card.module';
+import { TranslocoModule } from '@ngneat/transloco';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes: Routes = [
   {
@@ -22,6 +24,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatCarouselModule.forRoot(),
     MovieCardModule,
+    TranslocoModule,
+    MatButtonModule,
   ],
 })
 export class LandingModule {

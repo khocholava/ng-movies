@@ -1,1 +1,13 @@
-<app-movie-card></app-movie-card>
+<div class="trending-section p-4 mat-typography">
+  <div class="section-heading">
+    <h3 class="mat-h3 mat-subheading-2">{{'landing.trendingMovies' | transloco}}</h3>
+    <a mat-button color="warn" href="#">{{'landing.seeMore' | transloco}}</a>
+  </div>
+<div class="trending-movies-cards">
+  <ng-container *ngIf="movies$ | async as movies">
+    <ng-container *ngFor="let movie of movies.slice(0, 4)">
+      <app-movie-card [movie]="movie"></app-movie-card>
+    </ng-container>
+  </ng-container>
+</div>
+</div>

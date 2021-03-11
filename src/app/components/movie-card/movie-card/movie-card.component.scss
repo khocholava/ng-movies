@@ -1,5 +1,66 @@
 :host {
   .movie-card {
-    max-width: 400px;
+    max-width: 250px;
+    width: 250px;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    transition: all .2s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+    .details {
+      width: 70%;
+      height: 80%;
+      padding: 5% 8%;
+      top: 40%;
+      left: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: absolute;
+      content: "";
+      transform: translate(-50%, -50%);
+      transform-origin: 50%;
+      background: rgba(200, 193, 193, 0.2);
+      opacity: 0;
+      transition: all 0.2s ease-in;
+      border: 2px solid green;
+    }
+
+    &:hover {
+      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      .details {
+        position: absolute;
+        opacity: 1;
+        height: 50%;
+        width: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+        transition: .2s ease;
+      }
+      .poster {
+        filter: grayscale(50%);
+      }
+    }
+
+    .poster {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .description {
+      padding: 1rem;
+      .movie-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .button-container {
+      margin-top: .5rem;
+    }
   }
 }

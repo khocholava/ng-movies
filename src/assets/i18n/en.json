@@ -2,7 +2,13 @@
   "toolbar": {
     "projectTitle": "MovieDB App",
     "movies": "Movies",
-    "tvShows": "TV Shows",
+    "tvShows": "TV shows",
     "genres": "Genres"
+  },
+  "landing": {
+    "trendingMovies": "Trending movies",
+    "trendingTvShows": "Trending tv shows",
+    "seeMore": "See More",
+    "movieDetails": "Movie details"
   }
 }

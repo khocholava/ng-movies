@@ -1,6 +1,24 @@
-<mat-card class="movie-card">
-  <mat-card>
-    <div class="mat-body-2">Code compilé</div>
-    <div class="mat-body-1">Le code écrit en TypeScript est compilé en JavaScript avant d'être utilisé : de ce fait, tout code JavaScript valide est du code TypeScript valide.</div>
-  </mat-card>
-</mat-card>
+<div class="movie-card">
+  <img [src]="posterUrl+'/'+movie.poster_path" alt="poster" class="poster">
+  <div class="description">
+    <div class="movie-info">
+      <p>{{movie?.title}}</p>
+      <p>{{movie?.release_date | date: 'yyyy' }}</p>
+    </div>
+  </div>
+  <div class="details">
+      <div class="rating">
+        <ng-container *ngFor="let star of rating(movie)">
+          <span>⭐️</span>
+        </ng-container>
+      </div>
+    <div class="genres">
+      Horror
+      Mistic
+    </div>
+    <div class="button-container">
+      <button mat-raised-button color="primary">{{'landing.movieDetails' | transloco}}</button>
+
+    </div>
+  </div>
+</div>
