@@ -1,7 +1,7 @@
 import { Action, State, StateContext } from '@ngxs/store';
 import { LandingStoreModel } from './landing-store.models';
 import { Injectable } from '@angular/core';
-import { QueryMovies } from './landing-store.actions';
+import { QueryGenres, QueryMovies } from './landing-store.actions';
 import { LandingStoreService } from './landing-store.service';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -12,6 +12,7 @@ import { Movie } from '../../shared/types';
   defaults: {
     movie: {},
     movies: [],
+    genres: [],
   },
 })
 @Injectable()
@@ -27,6 +28,17 @@ export class LandingStoreState {
       tap(movies => {
         patchState({
           movies,
+        });
+      }),
+    );
+  }
+
+  @Action(QueryGenres)
+  queryGenres({ patchState }: StateContext<LandingStoreModel>) {
+    return this.landingStoreService.queryGenres().pipe(
+      tap(genres => {
+        patchState({
+          genres,
         });
       }),
     );

@@ -41,6 +41,16 @@
       .poster {
         filter: grayscale(50%);
       }
+
+      .genres-container {
+       .genres-list {
+         list-style-type: none;
+         padding: 0;
+          .genres-item {
+            color: white;
+          }
+       }
+      }
     }
 
     .poster {

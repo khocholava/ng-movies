@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponseType, Movie } from '../../shared/types';
+import { ApiResponseType, DictionaryType, Movie } from '../../shared/types';
 import { API_BASE_URL } from '../../tokens';
 import { map } from 'rxjs/operators';
 
@@ -18,5 +18,9 @@ export class LandingStoreService {
     return this.httpClient.get<ApiResponseType<Movie>>(`${this.apiBaseUrl}movie/now_playing`).pipe(
       map(m => m.results),
     );
+  }
+
+  queryGenres(): Observable<Array<DictionaryType>> {
+    return this.httpClient.get<Array<DictionaryType>>(`${this.apiBaseUrl}/genre/movie/list`);
   }
 }

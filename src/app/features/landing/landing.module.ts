@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LandingSliderComponent } from './components/landing-slider/landing-slider.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { TrendingMoviesComponent } from './components/trending-movies/trending-movies.component';
-import { MovieCardModule } from '../../components/movie-card/movie-card.module';
+import { MovieCardModule } from '../../shared/components/movie-card/movie-card.module';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatButtonModule } from '@angular/material/button';
 

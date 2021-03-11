@@ -14,10 +14,12 @@ import { environment } from '../environments/environment';
 import { RequestInterceptor } from './shared/indeterceptors/request.interceptor';
 import { StoreModule } from './store/store.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MovieDetailsComponent } from './features/movie-details/movie-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MovieDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
     },
     {
       provide: IMAGE_LINK_URL,
-      useValue: environment.imageLinkUrl,
+      useValue: environment.posterLinkUrl,
       multi: true,
     },
     {

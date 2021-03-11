@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { Movie } from '../../../shared/types';
+import { Movie } from '../../types';
 import { IMAGE_LINK_URL } from '../../../tokens';
 
 @Component({
@@ -16,6 +16,7 @@ export class MovieCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.movie);
   }
 
   rating(movie: Movie) {

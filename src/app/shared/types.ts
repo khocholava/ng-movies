@@ -1,7 +1,3 @@
-export interface MovieResponse {
-  movies: Array<Movie>;
-}
-
 export interface ApiResponseType<T> {
   dates: {
     maximum: string;
@@ -28,4 +24,14 @@ export interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  genres?: Array<string>;
+}
+
+export interface Genres {
+  genres: Array<DictionaryType>;
+}
+
+export interface DictionaryType {
+  id: number;
+  name: string;
 }
