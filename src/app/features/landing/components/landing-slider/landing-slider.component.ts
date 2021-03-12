@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { IMAGE_LINK_URL } from '../../../../tokens';
 import { Select } from '@ngxs/store';
-import { LandingStoreSelectors } from '../../../../store/landing-store/landing-store.selectors';
+import { MoviesStoreSelectors } from '../../../../store/movies/movies-store.selectors';
 import { Observable, Subject } from 'rxjs';
 import { Movie } from '../../../../shared/types';
 import { takeUntil } from 'rxjs/operators';
@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: [ './landing-slider.component.scss' ],
 })
 export class LandingSliderComponent implements OnInit, OnDestroy {
-  @Select(LandingStoreSelectors.movies)
+  @Select(MoviesStoreSelectors.movies)
   movies$!: Observable<Array<Movie>>;
   slides: Array<{ image: string }> = [];
   destroy$: Subject<boolean> = new Subject<boolean>();

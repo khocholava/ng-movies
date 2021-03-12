@@ -1,0 +1,13 @@
+<div class="trending-section p-4 mat-typography">
+  <div class="section-heading">
+    <h3 class="mat-h3 mat-subheading-2">{{'landing.trendingTvShows' | transloco}}</h3>
+    <a mat-button color="warn" href="#">{{'landing.seeMore' | transloco}}</a>
+  </div>
+  <div class="trending-movies-cards">
+    <ng-container *ngIf="tvShowList | async as tvShows">
+      <ng-container *ngFor="let tvShow of tvShows">
+        <app-movie-card [movie]="tvShow"></app-movie-card>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

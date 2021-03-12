@@ -24,7 +24,12 @@ export interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
-  genres?: Array<string>;
+  genres?: Array<string> | Array<DictionaryType>;
+}
+
+export interface MovieCast {
+  name: string;
+  profile_path: string;
 }
 
 export interface Genres {

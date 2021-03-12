@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingStoreService } from './landing-store.service';
+import { MoviesStoreService } from './movies-store.service';
 
 
 @NgModule({
@@ -9,8 +9,8 @@ import { LandingStoreService } from './landing-store.service';
     CommonModule,
   ],
   providers: [
-    LandingStoreService,
+    MoviesStoreService,
   ],
 })
-export class LandingStoreModule {
+export class MoviesStoreModule {
 }

@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
     TranslocoModule,
     MatButtonModule,
     MatListModule,
+    RouterModule,
   ],
   exports: [
     MovieCardComponent,

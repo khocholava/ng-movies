@@ -1,24 +1,24 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { from, Observable, Subject } from 'rxjs';
-import { MoviesStoreSelectors } from '../../../../store/movies/movies-store.selectors';
 import { Select, Store } from '@ngxs/store';
+import { MoviesStoreSelectors } from '../../../../store/movies/movies-store.selectors';
+import { from, Observable, Subject } from 'rxjs';
 import { Genres, Movie } from '../../../../shared/types';
 import { filter, map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-trending-movies',
-  templateUrl: './trending-movies.component.html',
-  styleUrls: [ './trending-movies.component.scss' ],
+  selector: 'app-trending-tv-shows',
+  templateUrl: './trending-tv-shows.component.html',
+  styleUrls: [ './trending-tv-shows.component.scss' ],
 })
-export class TrendingMoviesComponent implements OnInit, OnDestroy {
-  @Select(MoviesStoreSelectors.movies)
-  movies$!: Observable<Array<Movie>>;
+export class TrendingTvShowsComponent implements OnInit, OnDestroy {
+  @Select(MoviesStoreSelectors.tvShows)
+  tvShows$!: Observable<Array<Movie>>;
 
   @Select(MoviesStoreSelectors.genres)
   genres$!: Observable<Genres>;
 
   destroy: Subject<boolean> = new Subject<boolean>();
-  movieList!: Observable<Array<Movie>>;
+  tvShowList!: Observable<Array<Movie>>;
 
   constructor(
     readonly store: Store,
@@ -26,15 +26,15 @@ export class TrendingMoviesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.movieList = this.genres$.pipe(
+    this.tvShowList = this.genres$.pipe(
       filter(item => !!item?.genres),
       map(item => item?.genres),
       map(genres => new Map(genres.map(genre => [ genre.id, genre ]))),
       mergeMap((genresMap) => {
-        return this.movies$.pipe(
-          map(movies => movies.map(movie => ({
-            ...movie,
-            genres: movie.genre_ids.map((id: number) => genresMap.get(id)?.name),
+        return this.tvShows$.pipe(
+          map(movies => movies.map(tvShow => ({
+            ...tvShow,
+            genres: tvShow.genre_ids.map((id: number) => genresMap.get(id)?.name),
           }))),
         );
       }),
@@ -48,4 +48,5 @@ export class TrendingMoviesComponent implements OnInit, OnDestroy {
     this.destroy.next();
     this.destroy.complete();
   }
+
 }

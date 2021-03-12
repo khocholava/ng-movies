@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxsModule } from '@ngxs/store';
-import { LandingStoreState } from './landing-store/landing-store.state';
-import { LandingStoreModule } from './landing-store/landing-store.module';
+import { MoviesStoreState } from './movies/movies-store.state';
+import { MoviesStoreModule } from './movies/movies-store.module';
 
 
 
@@ -10,8 +10,8 @@ import { LandingStoreModule } from './landing-store/landing-store.module';
   declarations: [],
   imports: [
     CommonModule,
-    NgxsModule.forFeature([LandingStoreState]),
-    LandingStoreModule
+    NgxsModule.forFeature([MoviesStoreState]),
+    MoviesStoreModule
   ]
 })
 export class StoreModule { }

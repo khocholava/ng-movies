@@ -1,0 +1,20 @@
+:host {
+  .trending-section {
+    margin-top: 2rem;
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .trending-movies-cards {
+      margin-top: .5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { LandingStoreSelectors } from '../../store/landing-store/landing-store.selectors';
+import { MoviesStoreSelectors } from '../../store/movies/movies-store.selectors';
 import { Observable } from 'rxjs';
 import { DictionaryType, Movie } from '../../shared/types';
-import { QueryGenres, QueryMovies } from '../../store/landing-store/landing-store.actions';
+import { QueryGenres, QueryMovies, QueryTvShows } from '../../store/movies/movies-store.actions';
 
 @Component({
   selector: 'app-landing',
@@ -11,10 +11,10 @@ import { QueryGenres, QueryMovies } from '../../store/landing-store/landing-stor
   styleUrls: [ './landing.component.scss' ],
 })
 export class LandingComponent implements OnInit {
-  @Select(LandingStoreSelectors.movies)
+  @Select(MoviesStoreSelectors.movies)
   movies$!: Observable<Array<Movie>>;
 
-  @Select(LandingStoreSelectors.genres)
+  @Select(MoviesStoreSelectors.genres)
   genres$!: Observable<Array<DictionaryType>>;
 
   constructor(
@@ -25,6 +25,7 @@ export class LandingComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new QueryMovies());
     this.store.dispatch(new QueryGenres());
+    this.store.dispatch(new QueryTvShows());
   }
 
 }

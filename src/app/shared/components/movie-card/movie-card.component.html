@@ -14,13 +14,14 @@
     </div>
     <div class="genres-container">
       <ul class="genres-list">
-        <ng-container *ngFor="let genre of movie.genres.slice(0, 2)">
+        <ng-container *ngFor="let genre of movie.genres | slice: 0: 3 ">
           <li class="genres-item">{{genre}}</li>
         </ng-container>
       </ul>
     </div>
     <div class="button-container">
       <button
+        (click)="navigateToDetails(movie)"
         mat-raised-button
         color="primary">
         {{'landing.movieDetails' | transloco}}

@@ -8,6 +8,7 @@ import { TrendingMoviesComponent } from './components/trending-movies/trending-m
 import { MovieCardModule } from '../../shared/components/movie-card/movie-card.module';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MatButtonModule } from '@angular/material/button';
+import { TrendingTvShowsComponent } from './components/trending-tv-shows/trending-tv-shows.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [ LandingComponent, LandingSliderComponent, TrendingMoviesComponent ],
+  declarations: [ LandingComponent, LandingSliderComponent, TrendingMoviesComponent, TrendingTvShowsComponent ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

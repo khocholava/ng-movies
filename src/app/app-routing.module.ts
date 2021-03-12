@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: () => import('./features/landing/landing.module').then(m => m.LandingModule)
-  }
+    loadChildren: () => import('./features/landing/landing.module').then(m => m.LandingModule),
+  },
+  {
+    path: 'movies/:id',
+    loadChildren: () => import('./features/movie-details/movie-details.module').then(m => m.MovieDetailsModule),
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
