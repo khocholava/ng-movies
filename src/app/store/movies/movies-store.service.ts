@@ -51,5 +51,4 @@ export class MoviesStoreService {
       map(m => m.results),
     );
   }
-
 }

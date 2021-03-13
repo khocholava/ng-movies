@@ -6,4 +6,5 @@ export interface MovieStoreModel {
   genres: Partial<Array<DictionaryType>>;
   tvShows: Partial<Array<Movie>>;
   casts: Partial<Array<MovieCast>>;
+  searchResult: Partial<Array<Movie>>;
 }

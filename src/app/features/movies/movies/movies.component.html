@@ -14,7 +14,7 @@
   </div>
 
   <div class="movies">
-    <ng-container *ngIf="movieList | async as movies">
+    <ng-container *ngIf="searchedMovieList$ | async as movies">
       <ng-container *ngFor="let movie of movies">
         <app-movie-card [movie]="movie"></app-movie-card>
       </ng-container>

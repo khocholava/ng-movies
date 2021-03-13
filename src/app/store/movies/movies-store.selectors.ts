@@ -30,4 +30,8 @@ export class MoviesStoreSelectors {
     return state.casts;
   }
 
+  @Selector([ MoviesStoreState ])
+  static searchResult(state: MovieStoreModel): Partial<Array<Movie>> {
+    return state.searchResult;
+  }
 }

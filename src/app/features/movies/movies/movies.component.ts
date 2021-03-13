@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { MoviesStoreSelectors } from '../../../store/movies/movies-store.selectors';
 import { Observable, Subject } from 'rxjs';
 import { Genres, Movie } from '../../../shared/types';
-import { QueryGenres, QueryMovies, QueryTvShows, SearchMovies } from '../../../store/movies/movies-store.actions';
+import { InvalidateSearch, QueryGenres, QueryMovies, QueryTvShows, SearchMovies } from '../../../store/movies/movies-store.actions';
 import { delay, distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
 
 @Component({
@@ -12,15 +12,15 @@ import { delay, distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/op
   templateUrl: './movies.component.html',
   styleUrls: [ './movies.component.scss' ],
 })
-export class MoviesComponent implements OnInit {
-  @Select(MoviesStoreSelectors.movies)
-  movies$!: Observable<Array<Movie>>;
+export class MoviesComponent implements OnInit, OnDestroy {
+  @Select(MoviesStoreSelectors.searchResult)
+  searchResult$!: Observable<Array<Movie>>;
 
   @Select(MoviesStoreSelectors.genres)
   genres$!: Observable<Genres>;
 
   destroy: Subject<boolean> = new Subject<boolean>();
-  movieList!: Observable<Array<Movie>>;
+  searchedMovieList$!: Observable<Array<Movie>>;
 
   formGroup = this.createFormGroup();
 
@@ -30,16 +30,15 @@ export class MoviesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new QueryMovies());
     this.store.dispatch(new QueryGenres());
     this.store.dispatch(new QueryTvShows());
 
-    this.movieList = this.genres$.pipe(
+    this.searchedMovieList$ = this.genres$.pipe(
       filter(item => !!item?.genres),
       map(item => item?.genres),
       map(genres => new Map(genres.map(genre => [ genre.id, genre ]))),
       mergeMap((genresMap) => {
-        return this.movies$.pipe(
+        return this.searchResult$.pipe(
           map(movies => movies.map(movie => ({
             ...movie,
             genres: movie.genre_ids.map((id: number) => genresMap.get(id)?.name),
@@ -48,6 +47,10 @@ export class MoviesComponent implements OnInit {
       }),
     ) as Observable<Array<Movie>>;
     this.searchMovies();
+  }
+
+  ngOnDestroy() {
+    this.store.dispatch(new InvalidateSearch());
   }
 
   createFormGroup() {
@@ -60,13 +63,13 @@ export class MoviesComponent implements OnInit {
     this.formGroup.controls.search.valueChanges.pipe(
       // delay(2000),
       distinctUntilChanged(),
-      filter(value =>  !!value),
+      filter(value => !!value),
       tap(value => {
         this.store.dispatch(new SearchMovies(value));
       }),
       filter(value => !value),
       tap(() => this.store.dispatch(new QueryMovies())),
-      delay(200)
+      delay(200),
     ).subscribe();
   }
 }

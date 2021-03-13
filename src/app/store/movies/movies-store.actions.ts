@@ -16,6 +16,10 @@ export class QueryCasts {
   }
 }
 
+export class InvalidateSearch {
+  static readonly type = '[Movie] Invalidate Search';
+}
+
 export class QueryGenres {
   static readonly type = '[Movies] Query Genres';
 }
