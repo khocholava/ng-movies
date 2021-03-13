@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { RequestInterceptor } from './shared/indeterceptors/request.interceptor';
 import { StoreModule } from './store/store.module';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
     NgxsModule.forRoot(),
     StoreModule,
     MatButtonModule,
+    NgxsReduxDevtoolsPluginModule.forRoot(),
   ],
   providers: [
     {

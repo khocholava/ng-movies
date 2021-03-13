@@ -2,8 +2,18 @@
   <img [src]="posterUrl+'/'+movie.poster_path" alt="poster" class="poster">
   <div class="description">
     <div class="movie-info">
-      <p>{{movie?.title}}</p>
-      <p>{{movie?.release_date | date: 'yyyy' }}</p>
+      <ng-container *ngIf="isTvShow; else movieTitle">
+        <p>{{movie?.original_name}}</p>
+      </ng-container>
+      <ng-template #movieTitle>
+        <p>{{movie?.original_title}}</p>
+      </ng-template>
+      <ng-container *ngIf="isTvShow; else movieReleaseDate">
+        <p>{{movie?.first_air_date | date: 'yyyy' }}</p>
+      </ng-container>
+      <ng-template #movieReleaseDate>
+        <p>{{movie?.release_date | date: 'yyyy' }}</p>
+      </ng-template>
     </div>
   </div>
   <div class="details">
@@ -14,7 +24,7 @@
     </div>
     <div class="genres-container">
       <ul class="genres-list">
-        <ng-container *ngFor="let genre of movie.genres | slice: 0: 3 ">
+        <ng-container *ngFor="let genre of movieGenre | slice: 0: 3 ">
           <li class="genres-item">{{genre}}</li>
         </ng-container>
       </ul>

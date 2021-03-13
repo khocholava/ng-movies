@@ -1,13 +1,18 @@
 import { Selector } from '@ngxs/store';
 import { MoviesStoreState } from './movies-store.state';
 import { MovieStoreModel } from './movies-store.models';
-import { DictionaryType, Movie } from '../../shared/types';
+import { DictionaryType, Movie, MovieCast } from '../../shared/types';
 
 export class MoviesStoreSelectors {
 
   @Selector([ MoviesStoreState ])
   static movies(state: MovieStoreModel): Partial<Array<Movie>> {
     return state.movies;
+  }
+
+  @Selector([ MoviesStoreState ])
+  static movie(state: MovieStoreModel): Partial<Movie> {
+    return state.movie;
   }
 
   @Selector([ MoviesStoreState ])
@@ -19,4 +24,10 @@ export class MoviesStoreSelectors {
   static genres(state: MovieStoreModel): Partial<Array<DictionaryType>> {
     return state.genres;
   }
+
+  @Selector([ MoviesStoreState ])
+  static cast(state: MovieStoreModel): Partial<Array<MovieCast>> {
+    return state.casts;
+  }
+
 }

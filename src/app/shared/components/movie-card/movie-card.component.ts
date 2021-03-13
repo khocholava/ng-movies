@@ -10,11 +10,21 @@ import { Router } from '@angular/router';
 })
 export class MovieCardComponent implements OnInit {
   @Input() movie!: Movie;
+  isTvShow = false;
 
   constructor(
     @Inject(IMAGE_LINK_URL) readonly posterUrl: string,
     readonly router: Router,
   ) {
+  }
+
+  get movieGenre() {
+    return this.movie.genres as Array<string>;
+  }
+
+  @Input()
+  set tvShow(value: unknown) {
+    this.isTvShow = true;
   }
 
   ngOnInit(): void {

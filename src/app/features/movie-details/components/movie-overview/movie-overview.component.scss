@@ -1,0 +1,53 @@
+:host {
+  .comma {
+    margin-right: 9px;
+
+    &:not(:last-child):after {
+      content: ',';
+    }
+  }
+ .overview-container {
+   max-height: 35rem;
+   height: 35rem;
+   width: 100%;
+   display: flex;
+   gap: 2rem;
+   .poster {
+     height: 100%;
+     width: 20%;
+     img {
+       height: 100%;
+     }
+   }
+   .description-container {
+     width: 80%;
+     .storyline {
+       margin-bottom: 1rem;
+       font-size: 2.4rem;
+       letter-spacing: 0.4px;
+     }
+     .description {
+       font-size: 1.6rem;
+     }
+     .statistics {
+       font-size: 1.6rem;
+       height: 100%;
+       ul {
+          display: flex;
+         flex-direction: column;
+         gap: 2rem;
+         li {
+           width: 100%;
+           display: flex;
+           .label {
+             margin-right: 2rem;
+           }
+           .genre {
+             color: #dc4666 !important;
+           }
+         }
+       }
+     }
+   }
+ }
+}

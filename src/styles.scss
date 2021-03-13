@@ -3,7 +3,14 @@
 html, body { height: 100%; font-size: 10px }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
+* {
+  box-sizing: border-box;
+}
 .p-4 {
   padding: 4rem;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
 }

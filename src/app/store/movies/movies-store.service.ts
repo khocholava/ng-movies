@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiResponseType, DictionaryType, Movie, MovieCast } from '../../shared/types';
+import { ApiResponseType, DictionaryType, Movie, MovieCast, MovieCastResponse } from '../../shared/types';
 import { API_BASE_URL } from '../../tokens';
 import { map } from 'rxjs/operators';
 
@@ -25,12 +25,8 @@ export class MoviesStoreService {
   }
 
   queryCasts(movieId: string): Observable<Array<MovieCast>> {
-    return this.httpClient.get<Array<MovieCast>>(`${this.apiBaseUrl}movie/${movieId}/credits`);
-  }
-
-  queryRecommendations(movieId: string): Observable<Array<Movie>> {
-    return this.httpClient.get<ApiResponseType<Movie>>(`${this.apiBaseUrl}movie/${movieId}/recommendations`).pipe(
-      map(m => m.results),
+    return this.httpClient.get<MovieCastResponse>(`${this.apiBaseUrl}movie/${movieId}/credits`).pipe(
+      map(c => c.cast),
     );
   }
 
@@ -46,5 +42,14 @@ export class MoviesStoreService {
     );
   }
 
+  searchMovie(name: string): Observable<Array<Movie>> {
+    return this.httpClient.get<ApiResponseType<Movie>>(`${this.apiBaseUrl}search/movie`, {
+      params: {
+        query: name,
+      },
+    }).pipe(
+      map(m => m.results),
+    );
+  }
 
 }

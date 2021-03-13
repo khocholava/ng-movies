@@ -1,0 +1,29 @@
+<div class="overview-container">
+  <div class="poster">
+    <img [src]="imageLink+'/'+movie.poster_path" alt="">
+  </div>
+  <div class="description-container">
+    <h2 class="storyline">{{'movieDetails.storyline' | transloco}}</h2>
+    <div class="description">
+      {{movie.overview}}
+    </div>
+    <div class="statistics">
+      <ul class="statistic-list">
+        <li class="statistic-list-item">
+          <div class="label">{{'movieDetails.releaseDate'| transloco}}:</div>
+          <div class="value">{{movie?.release_date | date: 'yyyy'}}</div>
+        </li>
+        <li class="statistic-list-item">
+          <div class="label">{{'movieDetails.runtime'| transloco}}:</div>
+          <div class="value">{{movie.runtime | time}}</div>
+        </li>
+        <li class="statistic-list-item" *ngIf="movieGenres?.length">
+          <div class="label">{{'movieDetails.genres'| transloco}}:</div>
+          <div class="comma genre" *ngFor="let genre of movieGenres">
+            {{genre?.name}}
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

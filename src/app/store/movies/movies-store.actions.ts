@@ -9,13 +9,6 @@ export class QueryMovie {
   }
 }
 
-export class QueryRecommendations {
-  static readonly type = '[Movie] Query Recommendations';
-
-  constructor(readonly movieId: string) {
-  }
-}
-
 export class QueryCasts {
   static readonly type = '[Movie] Query Casts';
 
@@ -29,4 +22,10 @@ export class QueryGenres {
 
 export class QueryTvShows {
   static readonly type = '[Movies] Query Tv Shows';
+}
+
+export class SearchMovies {
+  static readonly type = '[Movies] Search Movies';
+  constructor(readonly name: string) {
+  }
 }

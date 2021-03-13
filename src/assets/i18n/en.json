@@ -10,5 +10,17 @@
     "trendingTvShows": "Trending tv shows",
     "seeMore": "See More",
     "movieDetails": "Movie details"
+  },
+  "movieDetails": {
+    "storyline": "Storyline",
+    "movieDetails": "Movie details",
+    "runtime": "Runtime",
+    "genres": "Genres",
+    "releaseDate": "Release date",
+    "cast": "Cast"
+  },
+  "movieList": {
+    "movies": "Movies",
+    "search": "Search"
   }
 }

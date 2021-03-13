@@ -12,31 +12,7 @@
         *ngFor="let movie of movies"
         [hideOverlay]="true"
       >
-        <div class="hero">
-          <div class="backdrop">
-            <img
-              class="movie-poster"
-              alt="poster"
-              [src]="posterUrl+'/'+movie.poster_path">
-          </div>
-          <div class="pane">
-            <div>
-              <h1 class="name" [routerLink]="['/movies/', movie.id]">
-                {{movie?.title}}
-              </h1>
-              <div class="meta">
-                <div class="info">
-                  <span class="rate"><i class="material-icons">star</i><span>{{movie?.vote_average}}</span>/10</span>
-                  <span> {{movie?.vote_count }} Reviews</span>
-                  <span>{{movie?.release_date | date: 'yyyy' }}</span>
-                </div>
-              </div>
-              <div class="desc">
-                {{movie?.overview }}
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-movie-poster [movie]="movie"></app-movie-poster>
       </mat-carousel-slide>
     </ng-container>
   </mat-carousel>

@@ -1,7 +1,7 @@
 import { Action, State, StateContext } from '@ngxs/store';
 import { MovieStoreModel } from './movies-store.models';
 import { Injectable } from '@angular/core';
-import { QueryCasts, QueryGenres, QueryMovie, QueryMovies, QueryRecommendations, QueryTvShows } from './movies-store.actions';
+import { QueryCasts, QueryGenres, QueryMovie, QueryMovies, QueryTvShows, SearchMovies } from './movies-store.actions';
 import { MoviesStoreService } from './movies-store.service';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -15,7 +15,6 @@ import { Movie } from '../../shared/types';
     genres: [],
     tvShows: [],
     casts: [],
-    recommendations: [],
   },
 })
 @Injectable()
@@ -42,17 +41,6 @@ export class MoviesStoreState {
       tap(movie => {
         patchState({
           movie,
-        });
-      }),
-    );
-  }
-
-  @Action(QueryRecommendations)
-  queryRecommendations({ patchState }: StateContext<MovieStoreModel>, { movieId }: QueryRecommendations): Observable<Array<Movie>> {
-    return this.landingStoreService.queryRecommendations(movieId).pipe(
-      tap(movies => {
-        patchState({
-          movies,
         });
       }),
     );
@@ -86,6 +74,17 @@ export class MoviesStoreState {
       tap(genres => {
         patchState({
           genres,
+        });
+      }),
+    );
+  }
+
+  @Action(SearchMovies)
+  searchMovies({ patchState }: StateContext<MovieStoreModel>, action: SearchMovies) {
+    return this.landingStoreService.searchMovie(action.name).pipe(
+      tap(movies => {
+        patchState({
+          movies,
         });
       }),
     );

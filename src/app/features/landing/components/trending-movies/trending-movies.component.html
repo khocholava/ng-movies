@@ -1,7 +1,7 @@
 <div class="trending-section p-4 mat-typography">
   <div class="section-heading">
     <h3 class="mat-h3 mat-subheading-2">{{'landing.trendingMovies' | transloco}}</h3>
-    <a mat-button color="warn" href="#">{{'landing.seeMore' | transloco}}</a>
+    <a mat-button color="warn"  [routerLink]="['/movies-list']" href="#">{{'landing.seeMore' | transloco}}</a>
   </div>
   <div class="trending-movies-cards">
     <ng-container *ngIf="movieList | async as movies">

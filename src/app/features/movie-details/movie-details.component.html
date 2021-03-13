@@ -1,1 +1,13 @@
-<p>movie-details works!</p>
+<ng-container *ngIf="movie$ | async as movie">
+  <div class="poster-container">
+    <app-movie-poster [movie]="movie"></app-movie-poster>
+  </div>
+  <div class=" overview-section p-4">
+    <app-movie-overview [movie]="movie"></app-movie-overview>
+  </div>
+</ng-container>
+<ng-container *ngIf="cast$ | async as cast ">
+  <div class="cast-section p-4">
+    <app-cast [cast]="cast"></app-cast>
+  </div>
+</ng-container>

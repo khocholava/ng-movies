@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { QueryCasts, QueryMovie, QueryRecommendations } from '../../store/movies/movies-store.actions';
-import { Subject } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { QueryCasts, QueryMovie } from '../../store/movies/movies-store.actions';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MoviesStoreSelectors } from '../../store/movies/movies-store.selectors';
+import { Movie, MovieCast } from '../../shared/types';
 
 @Component({
   selector: 'app-movie-details',
@@ -11,6 +13,13 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: [ './movie-details.component.scss' ],
 })
 export class MovieDetailsComponent implements OnInit, OnDestroy {
+  @Select(MoviesStoreSelectors.movie)
+  movie$!: Observable<Movie>;
+
+  @Select(MoviesStoreSelectors.cast)
+  cast$!: Observable<Array<MovieCast>>;
+
+
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -25,7 +34,6 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     ).subscribe((params: Params) => {
       const id = params?.id;
       this.queryMovie(id);
-      this.queryRecommendations(id);
       this.queryCasts(id);
     });
   }
@@ -37,10 +45,6 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   queryMovie(movieId: string) {
     this.store.dispatch(new QueryMovie(movieId));
-  }
-
-  queryRecommendations(movieId: string) {
-    this.store.dispatch(new QueryRecommendations(movieId));
   }
 
   queryCasts(movieId: string) {

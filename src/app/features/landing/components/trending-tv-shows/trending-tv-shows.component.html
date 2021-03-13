@@ -6,7 +6,7 @@
   <div class="trending-movies-cards">
     <ng-container *ngIf="tvShowList | async as tvShows">
       <ng-container *ngFor="let tvShow of tvShows">
-        <app-movie-card [movie]="tvShow"></app-movie-card>
+        <app-movie-card tvShow [movie]="tvShow"></app-movie-card>
       </ng-container>
     </ng-container>
   </div>

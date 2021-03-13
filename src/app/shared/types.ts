@@ -9,6 +9,8 @@ export interface ApiResponseType<T> {
   results: Array<T>;
 }
 
+type GenreType = Array<string> | Array<DictionaryType>;
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string;
@@ -20,11 +22,20 @@ export interface Movie {
   popularity: number;
   poster_path: string;
   release_date: string;
+  first_air_date?: string;
   title: string;
+  runtime: number;
   video: boolean;
   vote_average: number;
   vote_count: number;
-  genres?: Array<string> | Array<DictionaryType>;
+  genres?: GenreType;
+  original_name?: string;
+}
+
+
+export interface MovieCastResponse {
+  cast: Array<MovieCast>;
+  crew: Array<MovieCast>;
 }
 
 export interface MovieCast {
