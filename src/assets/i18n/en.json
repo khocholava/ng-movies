@@ -21,6 +21,7 @@
   },
   "movieList": {
     "movies": "Movies",
-    "search": "Search"
+    "search": "Search",
+    "searchMoviesToSeeResult": "Search for movies to see result"
   }
 }

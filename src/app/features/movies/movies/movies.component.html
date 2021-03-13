@@ -13,8 +13,21 @@
     </form>
   </div>
 
+  <ng-container *ngIf="searchResult$ | async as movies">
+    <ng-container *ngIf="!movies.length">
+        <p>{{'movieList.searchMoviesToSeeResult' | transloco}}</p>
+    </ng-container>
+  </ng-container>
+
   <div class="movies">
     <ng-container *ngIf="searchedMovieList$ | async as movies">
+      <ng-container *ngIf="!movies.length">
+        <ng-container *ngIf="movieList | async as movies">
+          <ng-container *ngFor="let movie of movies">
+            <app-movie-card [movie]="movie"></app-movie-card>
+          </ng-container>
+        </ng-container>
+      </ng-container>
       <ng-container *ngFor="let movie of movies">
         <app-movie-card [movie]="movie"></app-movie-card>
       </ng-container>

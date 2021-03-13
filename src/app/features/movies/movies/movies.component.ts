@@ -5,7 +5,8 @@ import { MoviesStoreSelectors } from '../../../store/movies/movies-store.selecto
 import { Observable, Subject } from 'rxjs';
 import { Genres, Movie } from '../../../shared/types';
 import { InvalidateSearch, QueryGenres, QueryMovies, QueryTvShows, SearchMovies } from '../../../store/movies/movies-store.actions';
-import { delay, distinctUntilChanged, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { delay, distinctUntilChanged, filter, tap } from 'rxjs/operators';
+import { mergeGenres } from '../../../shared/operators';
 
 @Component({
   selector: 'app-movies',
@@ -16,12 +17,15 @@ export class MoviesComponent implements OnInit, OnDestroy {
   @Select(MoviesStoreSelectors.searchResult)
   searchResult$!: Observable<Array<Movie>>;
 
+  @Select(MoviesStoreSelectors.movies)
+  movies$!: Observable<Array<Movie>>;
+
   @Select(MoviesStoreSelectors.genres)
   genres$!: Observable<Genres>;
 
   destroy: Subject<boolean> = new Subject<boolean>();
   searchedMovieList$!: Observable<Array<Movie>>;
-
+  movieList!: Observable<Array<Movie>>;
   formGroup = this.createFormGroup();
 
   constructor(
@@ -32,20 +36,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.dispatch(new QueryGenres());
     this.store.dispatch(new QueryTvShows());
+    this.store.dispatch(new QueryMovies());
 
-    this.searchedMovieList$ = this.genres$.pipe(
-      filter(item => !!item?.genres),
-      map(item => item?.genres),
-      map(genres => new Map(genres.map(genre => [ genre.id, genre ]))),
-      mergeMap((genresMap) => {
-        return this.searchResult$.pipe(
-          map(movies => movies.map(movie => ({
-            ...movie,
-            genres: movie.genre_ids.map((id: number) => genresMap.get(id)?.name),
-          }))),
-        );
-      }),
-    ) as Observable<Array<Movie>>;
+    this.searchedMovieList$ = mergeGenres(this.genres$, this.searchResult$);
+    this.movieList = mergeGenres(this.genres$, this.movies$);
     this.searchMovies();
   }
 
@@ -61,15 +55,13 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   searchMovies() {
     this.formGroup.controls.search.valueChanges.pipe(
-      // delay(2000),
+      tap(() => this.store.dispatch(new InvalidateSearch())),
+      delay(200),
       distinctUntilChanged(),
       filter(value => !!value),
       tap(value => {
         this.store.dispatch(new SearchMovies(value));
       }),
-      filter(value => !value),
-      tap(() => this.store.dispatch(new QueryMovies())),
-      delay(200),
     ).subscribe();
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { from, Observable, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { MoviesStoreSelectors } from '../../../../store/movies/movies-store.selectors';
 import { Select, Store } from '@ngxs/store';
 import { Genres, Movie } from '../../../../shared/types';
-import { filter, map, mergeMap, switchMap, take, toArray } from 'rxjs/operators';
+import { mergeAndTakeGenres } from '../../../../shared/operators';
 
 @Component({
   selector: 'app-trending-movies',
@@ -26,22 +26,7 @@ export class TrendingMoviesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.movieList = this.genres$.pipe(
-      filter(item => !!item?.genres),
-      map(item => item?.genres),
-      map(genres => new Map(genres.map(genre => [ genre.id, genre ]))),
-      mergeMap((genresMap) => {
-        return this.movies$.pipe(
-          map(movies => movies.map(movie => ({
-            ...movie,
-            genres: movie.genre_ids.map((id: number) => genresMap.get(id)?.name),
-          }))),
-        );
-      }),
-      switchMap(movies => from(movies)),
-      take(6),
-      toArray(),
-    ) as Observable<Array<Movie>>;
+    this.movieList = mergeAndTakeGenres(this.genres$, this.movies$);
   }
 
   ngOnDestroy() {
