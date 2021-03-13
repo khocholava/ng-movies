@@ -1,0 +1,36 @@
+<div class="p-4">
+  <div class="section-header">
+    <h3 class="mat-h3 mat-subheading-2">
+      {{'movieList.movies'| transloco}}
+    </h3>
+  </div>
+  <div class="search-field">
+    <form [formGroup]="formGroup">
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>{{'movieList.search' | transloco}}</mat-label>
+        <input matInput formControlName="search">
+      </mat-form-field>
+    </form>
+  </div>
+
+  <ng-container *ngIf="searchResult$ | async as movies">
+    <ng-container *ngIf="!movies.length">
+      <p>{{'movieList.searchMoviesToSeeResult' | transloco}}</p>
+    </ng-container>
+  </ng-container>
+
+  <div class="movies">
+    <ng-container *ngIf="searchedMovieList$ | async as movies">
+      <ng-container *ngIf="!movies.length">
+        <ng-container *ngIf="tvShowsList$ | async as movies">
+          <ng-container *ngFor="let movie of movies">
+            <app-movie-card [movie]="movie"></app-movie-card>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngFor="let movie of movies">
+        <app-movie-card [movie]="movie"></app-movie-card>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

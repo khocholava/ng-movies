@@ -4,11 +4,8 @@
   <a mat-button class="example-icon favorite-icon" [routerLink]="['/movies-list']">
     {{'toolbar.movies' | transloco}}
   </a>
-  <a mat-button class="example-icon">
+  <a mat-button class="example-icon" [routerLink]="['/tv-show-list']">
     {{'toolbar.tvShows' | transloco}}
-  </a>
-  <a mat-button class="example-icon">
-    {{'toolbar.genres' | transloco}}
   </a>
 </mat-toolbar>
 <router-outlet></router-outlet>

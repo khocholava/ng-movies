@@ -1,31 +1,32 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
-import { MoviesStoreSelectors } from '../../../store/movies/movies-store.selectors';
+import { MoviesStoreSelectors } from '../../store/movies/movies-store.selectors';
 import { Observable, Subject } from 'rxjs';
-import { Genres, Movie } from '../../../shared/types';
-import { InvalidateSearch, QueryGenres, QueryMovies, SearchMovies } from '../../../store/movies/movies-store.actions';
+import { Genres, Movie } from '../../shared/types';
+import { InvalidateSearch, QueryGenres, QueryTvShows, SearchMovies } from '../../store/movies/movies-store.actions';
+import { mergeGenres } from '../../shared/operators';
+import { FormControl, FormGroup } from '@angular/forms';
 import { delay, distinctUntilChanged, filter, tap } from 'rxjs/operators';
-import { mergeGenres } from '../../../shared/operators';
 
 @Component({
-  selector: 'app-movies',
-  templateUrl: './movies.component.html',
-  styleUrls: [ './movies.component.scss' ],
+  selector: 'app-tv-shows',
+  templateUrl: './tv-shows.component.html',
+  styleUrls: [ './tv-shows.component.scss' ],
 })
-export class MoviesComponent implements OnInit, OnDestroy {
+export class TvShowsComponent implements OnInit, OnDestroy {
+
   @Select(MoviesStoreSelectors.searchResult)
   searchResult$!: Observable<Array<Movie>>;
 
-  @Select(MoviesStoreSelectors.movies)
-  movies$!: Observable<Array<Movie>>;
+  @Select(MoviesStoreSelectors.tvShows)
+  tvShows$!: Observable<Array<Movie>>;
 
   @Select(MoviesStoreSelectors.genres)
   genres$!: Observable<Genres>;
 
   destroy: Subject<boolean> = new Subject<boolean>();
   searchedMovieList$!: Observable<Array<Movie>>;
-  movieList!: Observable<Array<Movie>>;
+  tvShowsList$!: Observable<Array<Movie>>;
   formGroup = this.createFormGroup();
 
   constructor(
@@ -35,10 +36,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.store.dispatch(new QueryGenres());
-    this.store.dispatch(new QueryMovies());
+    this.store.dispatch(new QueryTvShows());
 
     this.searchedMovieList$ = mergeGenres(this.genres$, this.searchResult$);
-    this.movieList = mergeGenres(this.genres$, this.movies$);
+    this.tvShowsList$ = mergeGenres(this.genres$, this.tvShows$);
     this.searchMovies();
   }
 
